@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:18.4
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_USER: psqluser
+      POSTGRES_PASSWORD: qpssenha
+      POSTGRES_DB: psqldb
+    ports:
+      - "5432:5432"
+    volumes:
+      - psql_data:/var/lib/postgresql/data
+
+    backe_end:
+      build: .
+      restart: always
+      container_name: flasck_python
+      ports:
+        - "8080:5000"
+      env_file:
+      - path: .env
+        required: false
+
+volumes:
+  psql_data:
